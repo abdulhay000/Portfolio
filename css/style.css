@@ -520,6 +520,9 @@ footer p {
   .btn {
     margin: auto;
   }
+  .home-image {
+    display: none;
+  }
   .home-image img {
     margin-top: 40px;
     width: 230px;
@@ -605,9 +608,6 @@ footer p {
   }
   .btn {
     width: 100%;
-  }
-  .home-image {
-    display: none;
   }
 
   /* about */
