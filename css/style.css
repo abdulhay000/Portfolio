@@ -229,6 +229,79 @@ section {
   height: auto;
 }
 
+/* projects */
+
+.project-cards,
+.service-cards {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 25px;
+  padding: 0 8%;
+}
+.project-card {
+  display: flex;
+  flex-direction: column;
+  width: 320px;
+  background-color: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  overflow: hidden;
+  box-shadow: 0 4px 10px var(--shadow);
+  transition: 0.5s;
+}
+.project-card img {
+  display: block;
+  width: 100%;
+  height: auto;
+  aspect-ratio: 16 / 10;
+  object-fit: cover;
+}
+.project-body {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  flex: 1;
+  padding: 20px;
+}
+.project-body h3 {
+  color: var(--main);
+  font-size: 20px;
+}
+.project-body p {
+  color: var(--muted);
+}
+.project-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  list-style: none;
+}
+.project-tags li {
+  font-size: 13px;
+  padding: 4px 10px;
+  border: 1px solid var(--border);
+  border-radius: 999px;
+}
+.project-links {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-top: auto;
+}
+
+/* services */
+
+.service-card {
+  width: 260px;
+  background-color: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  padding: 25px;
+  text-align: center;
+  box-shadow: 0 4px 10px var(--shadow);
+  transition: 0.5s;
+}
 /* about */
 
 .title {
@@ -259,24 +332,6 @@ section {
   margin: 7px 0;
   color: var(--main);
   font-weight: bold;
-}
-/* education */
-
-.cards {
-  justify-content: center;
-  display: flex;
-  gap: 20px;
-  flex-wrap: wrap;
-}
-.cards > div {
-  width: 250px;
-  background-color: var(--surface);
-  border: 1px solid var(--border);
-  border-radius: 10px;
-  padding: 20px;
-  text-align: center;
-  box-shadow: 0 4px 10px var(--shadow);
-  transition: 0.3s;
 }
 
 /* certificates */
@@ -351,48 +406,6 @@ section {
   font-weight: bold;
   box-shadow: 0 4px 10px var(--shadow);
   transition: 0.5s;
-}
-
-/* goals */
-
-.goals-intro {
-  text-align: center;
-  font-size: 19px;
-  color: var(--main);
-  margin-bottom: 30px;
-}
-.goal-text {
-  font-size: 16px;
-}
-.goal-cards {
-  justify-content: center;
-  display: flex;
-  gap: 25px;
-  flex-wrap: wrap;
-}
-.goal-cards > div {
-  width: 300px;
-  background-color: var(--surface);
-  border: 1px solid var(--border);
-  border-radius: 10px;
-  padding: 20px;
-  text-align: center;
-  box-shadow: 0 4px 10px var(--shadow);
-  transition: 0.3s;
-}
-.goal-cards h3 {
-  color: var(--main);
-  margin-bottom: 15px;
-  text-align: center;
-  font-size: 20px;
-}
-.goal-cards li {
-  list-style: none;
-  padding: 10px 0;
-  border-bottom: 1px solid var(--border);
-}
-.goal-cards li:last-child {
-  border-bottom: none;
 }
 
 /* contact */
@@ -508,9 +521,10 @@ footer p {
     background-color: var(--main);
     color: var(--on-main);
   }
-  .cards > div:hover {
-    transform: translateY(-5px);
-    box-shadow: 0 10px 15px var(--shadow);
+  .project-card:hover,
+  .service-card:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 15px 20px var(--shadow);
   }
   .cert-cards > div:hover {
     transform: translateY(-8px);
@@ -518,10 +532,6 @@ footer p {
   }
   .cert-btn:hover {
     background-color: var(--hover);
-  }
-  .goal-cards > div:hover {
-    transform: scale(0.97);
-    box-shadow: 0 10px 15px var(--shadow);
   }
   form button:hover:not(:disabled) {
     background-color: var(--hover);
@@ -610,22 +620,14 @@ footer p {
     text-align: center;
   }
 
-  /* education / certificates */
+  /* certificates */
 
-  .cards > div,
   .cert-cards > div {
     width: 100%;
     max-width: 320px;
   }
   .cert-cards > div {
     min-height: 260px;
-  }
-
-  /* goals */
-
-  .goal-cards > div {
-    width: 90%;
-    max-width: 320px;
   }
 
   /* contact */
@@ -685,6 +687,13 @@ footer p {
     width: 100%;
   }
 
+  /*projects & services*/
+
+  .project-card,
+  .service-card {
+    width: 100%;
+  }
+
   /* about */
 
   .title {
@@ -694,11 +703,9 @@ footer p {
     font-size: 15px;
   }
 
-  /* education / certificates / goals */
+  /* certificates */
 
-  .cards > div,
-  .cert-cards > div,
-  .goal-cards > div {
+  .cert-cards > div {
     width: 100%;
     max-width: 100%;
   }
