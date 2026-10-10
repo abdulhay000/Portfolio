@@ -1,13 +1,38 @@
+@font-face {
+  font-family: "Inter";
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url("../fonts/inter-400.woff2") format("woff2");
+}
+@font-face {
+  font-family: "Inter";
+  font-style: normal;
+  font-weight: 700;
+  font-display: swap;
+  src: url("../fonts/inter-700.woff2") format("woff2");
+}
 :root {
-  --main: rgb(108, 6, 6);
-  --hover: rgb(196, 23, 23);
-  --shadow: rgba(108, 6, 6, 0.15);
-  --bright: #f4f4f4;
+  color-scheme: dark;
+  --bg: #0d1117;
+  --surface: #161b22;
+  --border: #30363d;
+  --text: #e6edf3;
+  --muted: #9da7b3;
+  --main: #2dd4bf;
+  --hover: #5eead4;
+  --on-main: #0d1117;
+  --shadow: rgba(0, 0, 0, 0.4);
 }
 * {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
+}
+body,
+button,
+input,
+textarea {
   font-family: Inter, system-ui, sans-serif;
 }
 .sr-only {
@@ -22,20 +47,27 @@
   border: 0;
 }
 html {
-  scroll-behavior: smooth;
   scroll-padding-top: 50px;
 }
+/* smooth scrolling is turned on by script.js only for link clicks, so refreshes land exactly */
+html.smooth-scroll {
+  scroll-behavior: smooth;
+}
 body {
-  color: #333;
-  background-color: #ffe9e9;
+  color: var(--text);
+  background-color: var(--bg);
   line-height: 1.6;
-  cursor: default;
+}
+:focus-visible {
+  outline: 2px solid var(--main);
+  outline-offset: 3px;
 }
 
 /* Navigation Bar */
 
 header {
-  background-color: var(--main);
+  background-color: var(--surface);
+  border-bottom: 1px solid var(--border);
   z-index: 1000;
   position: fixed;
   width: 100%;
@@ -56,15 +88,15 @@ section {
   gap: 20px;
 }
 .nav-link a {
-  color: var(--bright);
+  color: var(--text);
   text-decoration: none;
   transition: 0.3s;
 }
 .nav-link a.active {
-  color: rgb(216, 125, 125);
+  color: var(--main);
 }
 .logo {
-  color: var(--bright);
+  color: var(--text);
   letter-spacing: -1.5px;
   text-decoration: none;
   font-size: 30px;
@@ -86,7 +118,7 @@ section {
   left: 0;
   width: 100%;
   height: 3px;
-  background-color: var(--bright);
+  background-color: var(--text);
   border-radius: 3px;
   transition: 0.6s;
 }
@@ -119,12 +151,29 @@ section {
   align-items: center;
   padding: 140px 7% 0;
 }
+.animation-slideUp {
+  animation: slideUp 2s ease forwards;
+  overflow-anchor: none;
+  /* Keep the animation from affecting initial scroll restoration. */
+  animation-fill-mode: both;
+}
+@keyframes slideUp {
+  from {
+    opacity: 0;
+    transform: translateY(100px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
 .home-text {
   width: 50%;
 }
 .eyebrow {
   display: inline-block;
-  background-color: var(--bright);
+  background-color: var(--surface);
+  border: 1px solid var(--border);
   padding: 10px 15px;
   border-radius: 999px;
   font-weight: bold;
@@ -135,9 +184,11 @@ section {
   font-size: 60px;
   line-height: 1.1;
 }
-.home-text h2 {
+.greeting {
   font-size: 35px;
-  color: #6c6460;
+  font-weight: bold;
+  line-height: 1.2;
+  color: var(--muted);
 }
 .subtitle {
   font-size: 17px;
@@ -160,10 +211,10 @@ section {
   font-weight: bold;
   transition: 0.3s;
   background-color: var(--main);
-  color: var(--bright);
+  color: var(--on-main);
 }
 .btn2 {
-  background-color: #ffe9e9;
+  background-color: transparent;
   border: 2px solid var(--main);
   color: var(--main);
 }
@@ -217,15 +268,15 @@ section {
   gap: 20px;
   flex-wrap: wrap;
 }
-.cards div {
+.cards > div {
   width: 250px;
-  background-color: var(--bright);
+  background-color: var(--surface);
+  border: 1px solid var(--border);
   border-radius: 10px;
   padding: 20px;
   text-align: center;
   box-shadow: 0 4px 10px var(--shadow);
   transition: 0.3s;
-  cursor: pointer;
 }
 
 /* certificates */
@@ -237,22 +288,19 @@ section {
   flex-wrap: wrap;
   padding: 0 8%;
 }
-.cert-cards div {
+.cert-cards > div {
   display: flex;
   flex-direction: column;
   justify-content: space-between;
   width: 300px;
-  height: 330px;
-  overflow: auto;
-  scrollbar-width: thin;
-  scrollbar-color: var(--main) var(--bright);
-  background-color: var(--bright);
+  min-height: 330px;
+  background-color: var(--surface);
+  border: 1px solid var(--border);
   border-radius: 10px;
   padding: 25px;
   text-align: center;
   box-shadow: 0 4px 10px var(--shadow);
   transition: 0.5s;
-  cursor: pointer;
 }
 .cert-cards h3 {
   color: var(--main);
@@ -261,29 +309,31 @@ section {
 }
 .cert-cards p {
   font-size: 16px;
-  color: #333;
+  color: var(--text);
   margin-bottom: 15px;
 }
-.udacity-cert,
-.grade-cert {
+.cert-btn {
   display: inline-block;
   background-color: var(--main);
-  color: var(--bright);
+  color: var(--on-main);
   text-decoration: none;
   padding: 10px 20px;
   border-radius: 5px;
   font-weight: bold;
   transition: 0.3s;
 }
-.grade-cert {
-  padding: 10px 15px;
-  margin: 5px 12px;
+.cert-links {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 10px;
 }
 
 /* skills */
 .skill-text {
   text-align: center;
   margin-bottom: 50px;
+  color: var(--muted);
 }
 .skills {
   display: flex;
@@ -297,7 +347,7 @@ section {
   background-color: var(--main);
   border-radius: 5px 40%;
   padding: 15px 30px;
-  color: var(--bright);
+  color: var(--on-main);
   font-weight: bold;
   box-shadow: 0 4px 10px var(--shadow);
   transition: 0.5s;
@@ -320,9 +370,10 @@ section {
   gap: 25px;
   flex-wrap: wrap;
 }
-.goal-cards div {
+.goal-cards > div {
   width: 300px;
-  background-color: var(--bright);
+  background-color: var(--surface);
+  border: 1px solid var(--border);
   border-radius: 10px;
   padding: 20px;
   text-align: center;
@@ -338,7 +389,10 @@ section {
 .goal-cards li {
   list-style: none;
   padding: 10px 0;
-  border-bottom: 1px solid #ffe9e9;
+  border-bottom: 1px solid var(--border);
+}
+.goal-cards li:last-child {
+  border-bottom: none;
 }
 
 /* contact */
@@ -361,7 +415,15 @@ section {
   font-weight: bold;
   color: var(--main);
 }
-.contact-info i {
+.icon {
+  display: inline-block;
+  width: 1em;
+  height: 1em;
+  vertical-align: -0.125em;
+  fill: currentColor;
+  flex-shrink: 0;
+}
+.contact-info .icon {
   margin-right: 8px;
   color: var(--main);
 }
@@ -377,7 +439,13 @@ textarea {
   margin: 7px 0;
   padding: 15px;
   border-radius: 10px;
-  border: 1px solid rgb(208, 161, 161);
+  border: 1px solid var(--border);
+  background-color: var(--surface);
+  color: var(--text);
+}
+form input::placeholder,
+textarea::placeholder {
+  color: var(--muted);
 }
 form input:focus,
 textarea:focus {
@@ -388,23 +456,29 @@ form button {
   border-radius: 10px;
   padding: 15px;
   background-color: var(--main);
-  color: var(--bright);
+  color: var(--on-main);
   cursor: pointer;
   font-size: 18px;
+  font-weight: bold;
   border: none;
   transition: 0.5s;
+}
+form button:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
 }
 
 /* footer */
 
 footer {
   text-align: center;
-  background-color: var(--main);
+  background-color: var(--surface);
+  border-top: 1px solid var(--border);
   padding: 15px;
   margin-top: 50px;
 }
 footer p {
-  color: var(--bright);
+  color: var(--muted);
 }
 .social-links {
   display: flex;
@@ -413,7 +487,7 @@ footer p {
   margin-bottom: 5px;
 }
 .social-links a {
-  color: var(--bright);
+  color: var(--text);
   font-size: 24px;
   transition: 0.5s;
 }
@@ -422,32 +496,38 @@ footer p {
 
 @media (hover: hover) {
   .nav-link a:hover {
-    color: rgb(216, 125, 125);
+    color: var(--main);
   }
   .btn:hover {
     transform: scaleX(0.94);
   }
-  .cards div:hover {
+  .btn:not(.btn2):hover {
+    background-color: var(--hover);
+  }
+  .btn2:hover {
+    background-color: var(--main);
+    color: var(--on-main);
+  }
+  .cards > div:hover {
     transform: translateY(-5px);
     box-shadow: 0 10px 15px var(--shadow);
   }
-  .cert-cards div:hover {
+  .cert-cards > div:hover {
     transform: translateY(-8px);
     box-shadow: 0 15px 20px var(--shadow);
   }
-  .udacity-cert:hover,
-  .grade-cert:hover {
+  .cert-btn:hover {
     background-color: var(--hover);
   }
-  .goal-cards div:hover {
+  .goal-cards > div:hover {
     transform: scale(0.97);
     box-shadow: 0 10px 15px var(--shadow);
   }
-  form button:hover {
+  form button:hover:not(:disabled) {
     background-color: var(--hover);
   }
   .social-links a:hover {
-    color: rgb(216, 125, 125);
+    color: var(--main);
     transform: translateY(-3px);
   }
   .skills li:hover {
@@ -468,31 +548,36 @@ footer p {
     display: block;
   }
   .nav-link {
-    display: grid;
-    grid-template-columns: 1fr 1fr 1fr;
-    position: fixed;
-    top: 70px;
-    width: 100%;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 14px 28px;
+    position: absolute;
+    top: 100%;
     left: 0;
-    background-color: var(--main);
-    text-align: center;
+    width: 100%;
+    background-color: var(--surface);
+    border-bottom: 1px solid var(--border);
     box-shadow: 0 6px 6px var(--shadow);
     max-height: 0;
     overflow: hidden;
     opacity: 0;
-    padding: 0;
+    visibility: hidden;
+    padding: 0 8%;
     transition:
       max-height 0.6s ease,
       opacity 0.4s ease,
-      padding 0.6s ease;
+      padding 0.6s ease,
+      visibility 0s linear 0.6s;
   }
   .nav-link.active {
     max-height: 400px;
     opacity: 1;
-    padding: 20px 0;
+    visibility: visible;
+    padding: 20px 8%;
+    transition-delay: 0s;
   }
   .logo {
-    font-size: 30px;
     letter-spacing: normal;
   }
 
@@ -503,29 +588,20 @@ footer p {
     padding: 160px 8% 0;
     text-align: center;
   }
-  .home-text,
-  .home-image {
+  .home-text {
     width: 100%;
   }
   .home-text h1 {
     font-size: 46px;
   }
-  .home-text h2 {
+  .greeting {
     font-size: 28px;
-  }
-  .subtitle {
-    width: auto;
-    white-space: normal;
   }
   .btn {
     margin: auto;
   }
   .home-image {
     display: none;
-  }
-  .home-image img {
-    margin-top: 40px;
-    width: 230px;
   }
 
   /* about */
@@ -536,19 +612,18 @@ footer p {
 
   /* education / certificates */
 
-  .cards div,
-  .cert-cards div {
+  .cards > div,
+  .cert-cards > div {
     width: 100%;
     max-width: 320px;
   }
-  .cert-cards div {
-    height: auto;
+  .cert-cards > div {
     min-height: 260px;
   }
 
   /* goals */
 
-  .goal-cards div {
+  .goal-cards > div {
     width: 90%;
     max-width: 320px;
   }
@@ -597,7 +672,7 @@ footer p {
   .home-text h1 {
     font-size: 32px;
   }
-  .home-text h2 {
+  .greeting {
     font-size: 22px;
   }
   .subtitle {
@@ -621,9 +696,9 @@ footer p {
 
   /* education / certificates / goals */
 
-  .cards div,
-  .cert-cards div,
-  .goal-cards div {
+  .cards > div,
+  .cert-cards > div,
+  .goal-cards > div {
     width: 100%;
     max-width: 100%;
   }
@@ -638,5 +713,20 @@ footer p {
 
   form {
     width: 100%;
+  }
+}
+
+/* respect reduced-motion settings */
+
+@media (prefers-reduced-motion: reduce) {
+  html,
+  html.smooth-scroll {
+    scroll-behavior: auto;
+  }
+  .animation-slideUp {
+    animation: none;
+  }
+  * {
+    transition-duration: 0.01ms !important;
   }
 }
