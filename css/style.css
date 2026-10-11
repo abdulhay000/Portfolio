@@ -48,6 +48,7 @@ textarea {
 }
 html {
   scroll-padding-top: 50px;
+  cursor: default;
 }
 /* smooth scrolling is turned on by script.js only for link clicks, so refreshes land exactly */
 html.smooth-scroll {
@@ -428,6 +429,11 @@ section {
   font-weight: bold;
   color: var(--main);
 }
+.contact-info a {
+  text-underline-offset: 4px;
+  color: inherit;
+  text-decoration: underline;
+}
 .icon {
   display: inline-block;
   width: 1em;
@@ -532,6 +538,9 @@ footer p {
   }
   .cert-btn:hover {
     background-color: var(--hover);
+  }
+  .contact-info a:hover {
+    color: var(--hover);
   }
   form button:hover:not(:disabled) {
     background-color: var(--hover);
