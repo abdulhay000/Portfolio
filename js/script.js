@@ -106,3 +106,28 @@ const sectionObserver = new IntersectionObserver(
 );
 
 sections.forEach((section) => sectionObserver.observe(section));
+
+if ("scrollRestoration" in history) {
+  history.scrollRestoration = "manual";
+}
+
+let userHasScrolled = false;
+["wheel", "touchstart", "keydown", "mousedown"].forEach((evt) =>
+  window.addEventListener(evt, () => (userHasScrolled = true), {
+    passive: true,
+  }),
+);
+
+function alignToHash() {
+  if (userHasScrolled) return;
+  const id = decodeURIComponent(location.hash.slice(1));
+  const target = id && document.getElementById(id);
+  if (target) {
+    target.scrollIntoView({ block: "start", behavior: "auto" });
+  }
+}
+
+window.addEventListener("load", alignToHash);
+if (document.fonts && document.fonts.ready) {
+  document.fonts.ready.then(alignToHash);
+}
