@@ -11,9 +11,16 @@ document.addEventListener("DOMContentLoaded", () => {
   }
 });
 const form = document.querySelector("form");
+const formStatus = document.getElementById("formStatus");
+
+function showFormStatus(message, isError) {
+  formStatus.textContent = message;
+  formStatus.classList.toggle("is-error", isError);
+}
 
 form.addEventListener("submit", async function (e) {
   e.preventDefault();
+  showFormStatus("", false);
 
   const submitButton = form.querySelector("button[type='submit']");
   const originalLabel = submitButton.textContent;
@@ -30,13 +37,19 @@ form.addEventListener("submit", async function (e) {
     });
 
     if (response.ok) {
-      alert("Thank you for your submission, we will respond shortly!");
+      showFormStatus(
+        "Thank you! Your message was sent. I will reply soon.",
+        false,
+      );
       form.reset();
     } else {
-      alert("Something went wrong. Please try again.");
+      showFormStatus("Something went wrong. Please try again.", true);
     }
   } catch {
-    alert("Something went wrong. Please check your connection and try again.");
+    showFormStatus(
+      "Something went wrong. Please check your connection and try again.",
+      true,
+    );
   } finally {
     submitButton.disabled = false;
     submitButton.textContent = originalLabel;
@@ -75,7 +88,7 @@ navLink.querySelectorAll("a").forEach((link) => {
 const sections = document.querySelectorAll("section[id]");
 const navLinks = document.querySelectorAll(".nav-link a");
 
-const observer = new IntersectionObserver(
+const sectionObserver = new IntersectionObserver(
   (entries) => {
     entries.forEach((entry) => {
       if (entry.isIntersecting) {
@@ -92,44 +105,4 @@ const observer = new IntersectionObserver(
   { rootMargin: "-50% 0px -50% 0px" },
 );
 
-sections.forEach((section) => observer.observe(section));
-
-// Keep a section link (e.g. #about) in place after refresh.
-// Browsers differ in when they scroll to the hash and whether they also restore
-// the old scroll position, and fonts/images can change the page height after that.
-// So we turn off the browser's own restoration and re-align to the hash once the
-// page has loaded, but only until the visitor starts scrolling.
-if ("scrollRestoration" in history) {
-  history.scrollRestoration = "manual";
-}
-
-let userHasScrolled = false;
-["wheel", "touchstart", "keydown", "mousedown"].forEach((evt) =>
-  window.addEventListener(evt, () => (userHasScrolled = true), { passive: true }),
-);
-
-function alignToHash() {
-  if (userHasScrolled) return;
-  const id = decodeURIComponent(location.hash.slice(1));
-  const target = id && document.getElementById(id);
-  if (target) {
-    target.scrollIntoView({ block: "start", behavior: "auto" });
-  }
-}
-
-alignToHash();
-window.addEventListener("load", alignToHash);
-if (document.fonts && document.fonts.ready) {
-  document.fonts.ready.then(alignToHash);
-}
-if ("ResizeObserver" in window) {
-  const settleUntil = Date.now() + 4000;
-  const observer = new ResizeObserver(() => {
-    if (userHasScrolled || Date.now() > settleUntil) {
-      observer.disconnect();
-      return;
-    }
-    alignToHash();
-  });
-  observer.observe(document.body);
-}
+sections.forEach((section) => sectionObserver.observe(section));

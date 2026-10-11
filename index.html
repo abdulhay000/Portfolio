@@ -5,12 +5,31 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta
       name="description"
-      content="Abdulhay Abduselam, web developer in BahirDar. I build fast, mobile-friendly websites for small businesses." />
+      content="Abdulhay Abduselam, web developer in Bahir Dar. I build fast, mobile-friendly websites for small businesses." />
     <meta
       name="google-site-verification"
       content="BJuPhoemy_DObbwvR9gJkzfB68tS8pSKKN2V3JMtGlE" />
     <meta name="theme-color" content="#0d1117" />
-    <title>Abdulhay Abduselam | Web Developer in BahirDar</title>
+    <!-- Link preview (Telegram, WhatsApp, Facebook, LinkedIn).
+         Replace YOUR-SITE.vercel.app below with your real website address. -->
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content="Abdulhay Abduselam" />
+    <meta
+      property="og:title"
+      content="Abdulhay Abduselam | Web Developer in Bahir Dar" />
+    <meta
+      property="og:description"
+      content="I build fast, mobile-friendly websites for small businesses in Bahir Dar." />
+    <meta
+      property="og:image"
+      content="https://abdulhay-portfolio.vercel.app//image/og-image.png" />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta
+      property="og:image:alt"
+      content="Abdulhay Abduselam, web developer in Bahir Dar" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <title>Abdulhay Abduselam | Web Developer in Bahir Dar</title>
     <link
       rel="preload"
       href="fonts/inter-400.woff2"
@@ -68,14 +87,19 @@
       </div>
       <div class="home-image">
         <img
-          src="image/home-image.webp"
-          width="540"
-          height="540"
-          alt="Illustration of a student coding" />
+          src="image/hero.svg"
+          width="480"
+          height="400"
+          alt="A business website shown on a laptop and a phone" />
       </div>
     </section>
 
-    <!-- Projects
+    <!-- Projects (hidden for now)
+    To show it again: remove the comment markers around this section, add the
+    Projects links to the nav and hero (also commented out above), and add the
+    .project-* styles back to css/style.css (they were removed while unused).
+    To add more projects, copy the whole article below.
+
     <section id="projects">
       <h2 class="title">Projects</h2>
       <p class="skill-text">Sample websites I built for local businesses.</p>
@@ -113,10 +137,9 @@
             </div>
           </div>
         </article>
-
-        <!-- Copy the whole <article> above for projects 2 and 3 -->
-    <!-- </div>
-    </section> -->
+      </div>
+    </section>
+    -->
 
     <!-- Services -->
 
@@ -153,7 +176,7 @@
       <div class="about">
         <div class="about-text">
           <p>
-            I'm a web developer in BahirDar. I build responsive, easy-to-use
+            I'm a web developer in Bahir Dar. I build responsive, easy-to-use
             websites for small businesses and individuals, using HTML, CSS and
             JavaScript.
           </p>
@@ -162,7 +185,7 @@
             Development Center, and I'm available for small freelance projects.
           </p>
           <div class="about-info">
-            <p><span aria-hidden="true">📍</span> BahirDar, Ethiopia</p>
+            <p><span aria-hidden="true">📍</span> Bahir Dar, Ethiopia</p>
             <p>
               <span aria-hidden="true">💻</span> Full-stack training at BiT CDC
             </p>
@@ -211,12 +234,12 @@
           <h3>Fullstack Web development</h3>
           <p>
             Completed Full Stack Web Development training program organized by
-            BahirDar Institute of Technology's Career Development Center
+            Bahir Dar Institute of Technology's Career Development Center
             (BiT_CDC).
           </p>
 
           <a
-            href="pdf/BIT Fullstack Development.pdf"
+            href="pdf/bit-fullstack-certificate.pdf"
             target="_blank"
             class="cert-btn"
             >View Certificate</a
@@ -285,10 +308,17 @@
                 fill="currentColor"
                 d="M215.7 499.2C267 435 384 279.4 384 192C384 86 298 0 192 0S0 86 0 192c0 87.4 117 243 168.3 307.2c12.3 15.3 35.1 15.3 47.4 0zM192 128a64 64 0 1 1 0 128 64 64 0 1 1 0-128z" />
             </svg>
-            BahirDar, Ethiopia
+            Bahir Dar, Ethiopia
           </p>
         </div>
         <form action="https://formspree.io/f/xqpagdlw" method="POST">
+          <!-- Spam trap: real visitors never see this field -->
+          <input
+            type="text"
+            name="_gotcha"
+            tabindex="-1"
+            autocomplete="off"
+            hidden />
           <label for="name" class="sr-only">Your Name</label>
           <input
             type="text"
@@ -311,6 +341,7 @@
             rows="5"
             required></textarea>
           <button type="submit">Send</button>
+          <p id="formStatus" class="form-status" role="status"></p>
         </form>
       </div>
     </section>

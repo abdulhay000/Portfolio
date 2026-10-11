@@ -23,6 +23,7 @@
   --hover: #5eead4;
   --on-main: #0d1117;
   --shadow: rgba(0, 0, 0, 0.4);
+  --error: #f87171;
 }
 * {
   margin: 0;
@@ -48,7 +49,6 @@ textarea {
 }
 html {
   scroll-padding-top: 50px;
-  cursor: default;
 }
 /* smooth scrolling is turned on by script.js only for link clicks, so refreshes land exactly */
 html.smooth-scroll {
@@ -224,15 +224,13 @@ section {
   text-align: center;
 }
 .home-image img {
-  border-radius: 50%;
-  width: 270px;
-  max-width: 100%;
+  width: 100%;
+  max-width: 420px;
   height: auto;
 }
 
-/* projects */
+/* services */
 
-.project-cards,
 .service-cards {
   display: flex;
   flex-wrap: wrap;
@@ -240,58 +238,6 @@ section {
   gap: 25px;
   padding: 0 8%;
 }
-.project-card {
-  display: flex;
-  flex-direction: column;
-  width: 320px;
-  background-color: var(--surface);
-  border: 1px solid var(--border);
-  border-radius: 10px;
-  overflow: hidden;
-  box-shadow: 0 4px 10px var(--shadow);
-  transition: 0.5s;
-}
-.project-card img {
-  display: block;
-  width: 100%;
-  height: auto;
-  aspect-ratio: 16 / 10;
-  object-fit: cover;
-}
-.project-body {
-  display: flex;
-  flex-direction: column;
-  gap: 10px;
-  flex: 1;
-  padding: 20px;
-}
-.project-body h3 {
-  color: var(--main);
-  font-size: 20px;
-}
-.project-body p {
-  color: var(--muted);
-}
-.project-tags {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 8px;
-  list-style: none;
-}
-.project-tags li {
-  font-size: 13px;
-  padding: 4px 10px;
-  border: 1px solid var(--border);
-  border-radius: 999px;
-}
-.project-links {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 10px;
-  margin-top: auto;
-}
-
-/* services */
 
 .service-card {
   width: 260px;
@@ -378,13 +324,6 @@ section {
   font-weight: bold;
   transition: 0.3s;
 }
-.cert-links {
-  display: flex;
-  justify-content: center;
-  flex-wrap: wrap;
-  gap: 10px;
-}
-
 /* skills */
 .skill-text {
   text-align: center;
@@ -468,8 +407,7 @@ textarea::placeholder {
 }
 form input:focus,
 textarea:focus {
-  outline: none;
-  border: 1px solid var(--main);
+  border-color: var(--main);
 }
 form button {
   border-radius: 10px;
@@ -485,6 +423,17 @@ form button {
 form button:disabled {
   opacity: 0.6;
   cursor: not-allowed;
+}
+.form-status {
+  margin-top: 12px;
+  font-weight: bold;
+  color: var(--main);
+}
+.form-status.is-error {
+  color: var(--error);
+}
+.form-status:empty {
+  display: none;
 }
 
 /* footer */
@@ -527,11 +476,7 @@ footer p {
     background-color: var(--main);
     color: var(--on-main);
   }
-  .project-card:hover,
-  .service-card:hover {
-    transform: translateY(-8px);
-    box-shadow: 0 15px 20px var(--shadow);
-  }
+  .service-card:hover,
   .cert-cards > div:hover {
     transform: translateY(-8px);
     box-shadow: 0 15px 20px var(--shadow);
@@ -634,8 +579,6 @@ footer p {
   .cert-cards > div {
     width: 100%;
     max-width: 320px;
-  }
-  .cert-cards > div {
     min-height: 260px;
   }
 
@@ -696,9 +639,8 @@ footer p {
     width: 100%;
   }
 
-  /*projects & services*/
+  /* services */
 
-  .project-card,
   .service-card {
     width: 100%;
   }
